@@ -9,7 +9,7 @@
   "activationCommands": {
     "atom-workspace": "quote-words:double"
   },
-  "repository": "https://github.com/atom/quote-words",
+  "repository": "https://github.com/jamesr73/quote-words",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
