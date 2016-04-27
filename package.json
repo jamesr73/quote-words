@@ -1,0 +1,19 @@
+{
+  "name": "quote-words",
+  "main": "./lib/quote-words",
+  "version": "0.1.0",
+  "description": "Quote every word of the selected text",
+  "keywords": [
+    "quotes", "replace", "editor"
+  ],
+  "activationCommands": {
+    "atom-workspace": "quote-words:double"
+  },
+  "repository": "https://github.com/atom/quote-words",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
