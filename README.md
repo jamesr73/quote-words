@@ -20,7 +20,7 @@ It looks for words containing standard word characters: letters, numbers and und
 ```
 "FOO", 'BAR',
 FOO_BAR
-, FIZZY1 : Q-U-X
+, FIZZY_1 : Q-U-X
 ```
 
 becomes this:
