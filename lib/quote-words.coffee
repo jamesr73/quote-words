@@ -5,14 +5,17 @@ module.exports = QuoteWords =
 
   activate: ->
     @subscriptions = new CompositeDisposable
-    @subscriptions.add atom.commands.add 'atom-workspace', 'quote-words:double': => @quoteWordsWith('"')
-    @subscriptions.add atom.commands.add 'atom-workspace', 'quote-words:single': => @quoteWordsWith("'")
+    @subscriptions.add atom.commands.add 'atom-workspace', 'quote-words:double': => @quoteSelectionWith('"')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'quote-words:single': => @quoteSelectionWith("'")
 
   deactivate: ->
     @subscriptions.dispose()
 
-  quoteWordsWith: (quoteChar) ->
+  quoteSelectionWith: (quoteChar) ->
     if editor = atom.workspace.getActiveTextEditor()
       selection = editor.getLastSelection()
-      replacement = selection.getText().replace(/(?:['"]?)(\w+)(?:['"]?)/g, quoteChar + '$1' + quoteChar)
+      replacement = @quote(selection.getText(), quoteChar)
       selection.insertText(replacement)
+
+  quote: (text, quoteChar) ->
+    text.replace(/(?:['"]?)(\w+)(?:['"]?)/g, quoteChar + '$1' + quoteChar)
