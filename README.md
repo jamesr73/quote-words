@@ -1,5 +1,5 @@
 # Atom quote-words package
-Quotes all of the words in the selected text.
+Quotes the separated words in the selected text.
 
 ## Installing
 Use the Atom package manager, which can be found in the Settings view, to search for and install quote-words. Or on the command line
@@ -35,6 +35,18 @@ becomes this:
 "FOO", "BAR",
 "FOO_BAR"
 , "FIZZY_1" : "Q"-"U"-"X"
+```
+
+Multiple words appearing between punctuation separators are quoted together:
+
+```
+French Polynesia, French Southern Territories
+```
+
+becomes this:
+
+```
+"French Polynesia", "French Southern Territories"
 ```
 
 More complex strings are treated naively:
