@@ -18,4 +18,5 @@ module.exports = QuoteWords =
       selection.insertText(replacement)
 
   quote: (text, quoteChar) ->
-    text.replace(/(?:['"]?)(\w+)(?:['"]?)/g, quoteChar + '$1' + quoteChar)
+    re = /(?:['"]?)(\w+(?:\s+\w+)*)(?:['"]?)/g
+    text.replace(re, quoteChar + '$1' + quoteChar)

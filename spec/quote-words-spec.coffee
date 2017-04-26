@@ -3,20 +3,25 @@
 single = "'"
 double = '"'
 
+test = (input, singled, doubled) ->
+    expect(quote(input, single)).toEqual(singled)
+    expect(quote(input, double)).toEqual(doubled)
+
 describe "empty selection", ->
     it "returns empty replacement", ->
-        expect(quote('', single)).toEqual('')
-        expect(quote('', double)).toEqual('')
+        test '', '', ''
 
 describe "single word", ->
     it "returns quoted replacement", ->
-        expect(quote('word', single)).toEqual("'word'")
-        expect(quote('word', double)).toEqual('"word"')
+        test 'word',
+            "'word'",
+            '"word"'
 
 describe "comma separated", ->
     it "quotes bare words", ->
-        expect(quote('FOO, BAR, QUX', single)).toEqual("'FOO', 'BAR', 'QUX'")
-        expect(quote('FOO, BAR, QUX', double)).toEqual('"FOO", "BAR", "QUX"')
+        test 'FOO, BAR, QUX',
+            "'FOO', 'BAR', 'QUX'",
+            '"FOO", "BAR", "QUX"'
 
 describe "existing quotes", ->
     it "ignores same", ->
@@ -28,13 +33,28 @@ describe "existing quotes", ->
 
 describe "mixed input", ->
     it "updates where different", ->
-        input = "\"FOO\", 'BAR',\nFOO_BAR\n, FIZZY_1 : Q-U-X"
-        singled = "'FOO', 'BAR',\n'FOO_BAR'\n, 'FIZZY_1' : 'Q'-'U'-'X'"
-        expect(quote(input, single)).toEqual(singled)
-        doubled = '"FOO", "BAR",\n"FOO_BAR"\n, "FIZZY_1" : "Q"-"U"-"X"'
-        expect(quote(input, double)).toEqual(doubled)
+        test "\"FOO\", 'BAR',\nFOO_BAR\n, FIZZY_1 : Q-U-X",
+            "'FOO', 'BAR',\n'FOO_BAR'\n, 'FIZZY_1' : 'Q'-'U'-'X'",
+            '"FOO", "BAR",\n"FOO_BAR"\n, "FIZZY_1" : "Q"-"U"-"X"'
 
 describe "complex input", ->
     it "behaves naively", ->
-        expect(quote('https://github.com', single)).toEqual("'https'://'github'.'com'")
-        expect(quote('https://github.com', double)).toEqual('"https"://"github"."com"')
+        test 'https://github.com',
+            "'https'://'github'.'com'",
+            '"https"://"github"."com"'
+
+describe "space separated words", ->
+    it "quotes two at once", ->
+        test 'French Polynesia',
+            "'French Polynesia'",
+            '"French Polynesia"'
+    it "quotes three at once", ->
+        test 'French Southern Territories',
+            "'French Southern Territories'",
+            '"French Southern Territories"'
+
+describe "comma and space separated", ->
+    it "quotes all words between commas", ->
+        test 'French Polynesia, French Southern Territories',
+            "'French Polynesia', 'French Southern Territories'",
+            '"French Polynesia", "French Southern Territories"'
